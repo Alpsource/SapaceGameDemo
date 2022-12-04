@@ -15,4 +15,16 @@ public class PlanetBehavior : MonoBehaviour
     {
         transform.Rotate(direction);
     }
+    private void FixedUpdate()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10);
+        Rigidbody col_rigid;
+        foreach (var hitCollider in hitColliders)
+        {
+            if(hitCollider.TryGetComponent<Rigidbody>(out col_rigid))
+            {
+                col_rigid.AddForce(-1*(hitCollider.transform.position - transform.position), ForceMode.Force);
+            }
+        }
+    }
 }
