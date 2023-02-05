@@ -7,7 +7,7 @@ public class PlanetBehavior : MonoBehaviour
     private Vector3 direction;
     void Start()
     {
-        direction = new Vector3(0.3f, 0.1f, 0.05f);
+        direction = new Vector3(0.0f, 0.2f, 0.0f);
     }
 
     // Update is called once per frame
@@ -23,7 +23,8 @@ public class PlanetBehavior : MonoBehaviour
         {
             if(hitCollider.TryGetComponent<Rigidbody>(out col_rigid))
             {
-                col_rigid.AddForce(-1*(hitCollider.transform.position - transform.position), ForceMode.Force);
+                col_rigid.AddForce(-1*(hitCollider.transform.position - transform.position)*(1/Vector3.Distance(hitCollider.transform.position, transform.position)),
+                    ForceMode.Force);
             }
         }
     }
