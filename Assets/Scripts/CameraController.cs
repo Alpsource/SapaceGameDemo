@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 
     public float smoothSpeed = 0.125f;
     public Vector3 offset;
+    public Vector2 borders;
 
     private void Start()
     {
@@ -17,6 +18,8 @@ public class CameraController : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 desiredPosition = target.position + offset;
+        if (desiredPosition.x < borders.x) desiredPosition.x = borders.x;
+        else if (desiredPosition.x > borders.y) desiredPosition.x = borders.y;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = smoothedPosition;
 

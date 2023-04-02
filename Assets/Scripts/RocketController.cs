@@ -5,21 +5,23 @@ using UnityEngine;
 public class RocketController : MonoBehaviour
 {
     private Rigidbody myRigid;
+    private bool armed;
     [Range(0, 1)]
     public float rotationSpeed;
     void Start()
     {
         myRigid = transform.GetComponent<Rigidbody>();
+        armed = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        myRigid.AddForce(1 * transform.up, ForceMode.Force);
+        if(armed) myRigid.AddForce(20 * transform.up, ForceMode.Force);
     }
     private void Update()
     {
-        RotatewrtInput();
+        if(armed)RotatewrtInput();
     }
 
     private void RotatewrtInput()
@@ -33,5 +35,13 @@ public class RocketController : MonoBehaviour
 
         // Calculate a rotation a step closer to the target and applies rotation to this object
         transform.eulerAngles = selfAngle;
+    }
+    public void Activate()
+    {
+        armed = true;
+    }
+    public void Deactivate()
+    {
+        armed = false;
     }
 }

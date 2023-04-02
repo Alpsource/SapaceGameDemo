@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlanetBehavior : MonoBehaviour
 {
+    public float PullForce;
+    public float PullRange;
     private Vector3 direction;
     void Start()
     {
@@ -17,13 +19,13 @@ public class PlanetBehavior : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, PullRange);
         Rigidbody col_rigid;
         foreach (var hitCollider in hitColliders)
         {
             if(hitCollider.TryGetComponent<Rigidbody>(out col_rigid))
             {
-                col_rigid.AddForce(-1*(hitCollider.transform.position - transform.position)*(1/Vector3.Distance(hitCollider.transform.position, transform.position)),
+                col_rigid.AddForce(-1 * PullForce * (hitCollider.transform.position - transform.position)*(1/Vector3.Distance(hitCollider.transform.position, transform.position)),
                     ForceMode.Force);
             }
         }
