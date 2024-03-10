@@ -11,7 +11,7 @@ public class RocketController : MonoBehaviour
     void Start()
     {
         myRigid = transform.GetComponent<Rigidbody>();
-        armed = false;
+        armed = true;
     }
 
     // Update is called once per frame
@@ -32,6 +32,8 @@ public class RocketController : MonoBehaviour
 
         float newAngle = Mathf.LerpAngle(selfAngle.z, targetAngle, rotationSpeed);
         selfAngle.z = newAngle;
+        selfAngle.x = 0;
+        selfAngle.y = 0;
 
         // Calculate a rotation a step closer to the target and applies rotation to this object
         transform.eulerAngles = selfAngle;
